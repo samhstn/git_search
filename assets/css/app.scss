@@ -1,6 +1,30 @@
 /* This file is for your main application css. */
-@import "./phoenix.css";
+@import "./milligram.css";
 @import "../node_modules/nprogress/nprogress.css";
+
+html, body, .phx-connected, .container {
+  height: 100%;
+  margin: 0;
+}
+
+.container{
+  margin: auto;
+  max-width: 80rem;
+  padding: 12rem 2rem;
+  position: relative;
+  width: 100%
+}
+
+.git-search-logo {
+  display: block;
+  margin: auto;
+}
+
+.git-search-input {
+  display: block;
+  margin: 5rem auto;
+  width: 70%;
+}
 
 /* LiveView specific classes for your customizations */
 .phx-no-feedback.invalid-feedback,
