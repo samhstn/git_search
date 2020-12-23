@@ -2,6 +2,9 @@
 @import "./milligram.css";
 @import "../node_modules/nprogress/nprogress.css";
 
+$dark: #212529;
+$light: white;
+
 html, body, .phx-connected, .container {
   height: 100%;
   margin: 0;
@@ -20,10 +23,44 @@ html, body, .phx-connected, .container {
   margin: auto;
 }
 
-.git-search-input {
-  display: block;
+.git-search-form {
   margin: 5rem auto;
   width: 70%;
+
+  & input {
+    padding: 0.6rem 5rem;
+  }
+}
+
+.git-search-list {
+  width: 70%;
+  margin: auto;
+  background-color: $dark;
+  border-radius: 25px;
+  padding: 1rem;
+  list-style-type: none;
+}
+
+.git-search-list-item {
+  background-color: $light;
+  margin: 0.5rem;
+  padding: 1rem;
+  position: relative;
+  cursor: default;
+
+  & svg {
+    position: absolute;
+    right: 1rem;
+  }
+}
+
+.fa-bars {
+  color: $dark;
+}
+
+.draggable-source--is-dragging {
+  visibility: hidden;
+  width: 100%;
 }
 
 /* LiveView specific classes for your customizations */

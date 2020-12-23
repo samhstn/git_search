@@ -3,6 +3,11 @@
 // its own CSS file.
 import "../css/app.scss"
 
+import '@fortawesome/fontawesome-free/js/fontawesome'
+import '@fortawesome/fontawesome-free/js/solid'
+import '@fortawesome/fontawesome-free/js/regular'
+import '@fortawesome/fontawesome-free/js/brands'
+
 // webpack automatically bundles all modules in your
 // entry points. Those entry points can be configured
 // in "webpack.config.js".
@@ -16,9 +21,30 @@ import "phoenix_html"
 import {Socket} from "phoenix"
 import NProgress from "nprogress"
 import {LiveSocket} from "phoenix_live_view"
+import {Sortable} from "@shopify/draggable"
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
+let Hooks = {}
+Hooks.MakeSortable = {
+  updated() {
+    if (this.currentSortable) {
+      this.currentSortable.destroy()
+    }
+
+    const sortable = new Sortable(document.querySelector('ul'), {
+      draggable: 'li'
+    })
+
+    sortable.on('drag:start', function(e){
+      setTimeout(function() {
+        document.querySelector('.draggable-mirror').style['width'] = e.source.getBoundingClientRect().width + 'px';
+      }, 0);
+    })
+
+    this.currentSortable = sortable
+  }
+}
+let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}, hooks: Hooks})
 
 // Show progress bar on live navigation and form submits
 window.addEventListener("phx:page-loading-start", info => NProgress.start())

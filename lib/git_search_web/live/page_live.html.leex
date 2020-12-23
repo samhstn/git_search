@@ -1,7 +1,20 @@
 <img class="git-search-logo" src="<%= Routes.static_path(@socket, "/images/git_search.png") %>" alt="Git Search"/>
 
-<form phx-change="search" class="git-search-input">
-  <input type="text" name="q" value="<%= @query %>" placeholder="Live search GitHub Repositories..." list="results" autocomplete="off"/>
+<form phx-change="search" class="git-search-form">
+  <input type="text" name="q" value="<%= @query %>" placeholder="Live search GitHub Repositories..." list="results" autocomplete="off" phx-debounce="200"/>
 </form>
 
-<%= inspect(@results) %>
+<div id="sortable" phx-hook="MakeSortable">
+  <%= if length(@results) > 0 do %>
+    <ul class="git-search-list">
+    <%= for result <- @results do %>
+      <li class="git-search-list-item">
+        <div>
+          <%= link result, to: "https://github.com/#{result}", target: "_blank" %>
+          <i class="fas fa-bars"></i>
+        </div>
+      </li>
+    <% end %>
+    </ul>
+  <% end %>
+</div>

@@ -29,7 +29,7 @@ defmodule GitSearchWeb.PageLive do
     end
   end
 
-  @spec search(String.t()) :: {:ok, [map()]} | {:error, String.t()}
+  @spec search(String.t()) :: {:ok, [String.t()]} | {:error, String.t()}
   defp search(query) do
     with {:ok, response} <- HTTPoison.get("#{@github_repo_url}?q=#{query}"),
          %HTTPoison.Response{status_code: 200} <- response,
